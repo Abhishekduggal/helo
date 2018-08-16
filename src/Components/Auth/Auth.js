@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  reducerUserNameInput,
+  reducerProfilePicInput,
+  reducerIDInput
+} from "../../ducks/reducer";
 
 class Auth extends Component {
   constructor(props) {
@@ -30,7 +36,10 @@ class Auth extends Component {
     axios
       .post("/api/user", { username, password })
       .then(response => {
-        // console.log(response);
+        // console.log(response.data);
+        this.props.reducerIDInput(response.data[0].id);
+        this.props.reducerUserNameInput(response.data[0].username);
+        this.props.reducerProfilePicInput(response.data[0].profile_pic);
         this.setState({ redirect: true });
       })
       .catch(err => {
@@ -40,10 +49,14 @@ class Auth extends Component {
 
   handleCreateUser() {
     let { username, password } = this.state;
+
     axios
       .post("/api/user/create", { username, password })
       .then(response => {
         // console.log(response);
+        this.props.reducerIDInput(response.data[0].id);
+        this.props.reducerUserNameInput(response.data[0].username);
+        this.props.reducerProfilePicInput(response.data[0].profile_pic);
         this.setState({ redirect: true });
       })
       .catch(err => {
@@ -88,4 +101,7 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+export default connect(
+  null,
+  { reducerIDInput, reducerUserNameInput, reducerProfilePicInput }
+)(Auth);
