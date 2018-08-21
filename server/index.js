@@ -10,7 +10,8 @@ const {
   read_Posts_User,
   read_Posts,
   create_Posts,
-  update
+  update,
+  detail_By_ID
 } = require("./controllers/postCtrl");
 
 // APP Build Folder serve all files
@@ -32,6 +33,7 @@ app.get("/api/posts", read_Posts);
 app.post("/api/posts/:id", read_Posts_User);
 app.post("/api/create/:id", create_Posts);
 app.put("/api/post/:title", update);
+app.post("/api/post/:id", detail_By_ID);
 
 // Build the APP for production catch all errors during build
 // app.get("*", (req, res) => {

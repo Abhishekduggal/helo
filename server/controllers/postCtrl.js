@@ -61,9 +61,23 @@ const update = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const detail_By_ID = (req, res, next) => {
+  let { id } = req.params;
+  console.log(id);
+
+  const db = req.app.get("db");
+
+  db.post_formid([id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   read_Posts_User,
   read_Posts,
   create_Posts,
-  update
+  update,
+  detail_By_ID
 };

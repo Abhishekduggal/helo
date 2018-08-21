@@ -1,6 +1,6 @@
 CREATE TABLE users_helo
 (
-    id SERIAL PRIMARY KEY,
+    userid SERIAL PRIMARY KEY,
     username VARCHAR(20),
     password VARCHAR(20),
     profile_pic TEXT

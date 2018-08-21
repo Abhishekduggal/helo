@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
   constructor() {
@@ -94,8 +95,8 @@ class Dashboard extends Component {
         return title.includes(this.state.search);
       })
       .map((post, i) => {
-        // console.log(post);
-        let { title, profile_pic, img, username, content } = post;
+        // console.log(post.id);
+        let { id, title, profile_pic, img, username, content } = post;
         // console.log(title);
         return (
           <div key={i}>
@@ -109,6 +110,9 @@ class Dashboard extends Component {
                 onBlur={e => this.handleSendEdit(title)}
               />
             )}
+            <br />
+            <Link to={`/post/${id}`}>Details</Link>
+            <br />
             <div>{username}</div>
             <img src={profile_pic} alt="" height="60" width="60" />
           </div>

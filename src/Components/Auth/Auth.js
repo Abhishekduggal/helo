@@ -65,7 +65,7 @@ class Auth extends Component {
   }
 
   render() {
-    console.log(this.props.match);
+    // console.log(this.props);
     let { username, password } = this.state;
     // console.log(username, password);
 
