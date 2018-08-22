@@ -24,13 +24,13 @@ class Nav extends Component {
 
   handleclicklogout() {
     axios.post(`/api/auth/logout`).then(res => {
-      console.log(res);
+      // console.log(res);
       this.setState({ userid: "", username: "" });
     });
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div>
         Nav Bar
