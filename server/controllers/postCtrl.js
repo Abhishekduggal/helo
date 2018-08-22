@@ -51,7 +51,7 @@ const update = (req, res, next) => {
 
   let { content } = req.body;
 
-  console.log(title, content);
+  // console.log(title, content);
   const db = req.app.get("db");
 
   db.update_post([title, content])
@@ -63,7 +63,7 @@ const update = (req, res, next) => {
 
 const detail_By_ID = (req, res, next) => {
   let { id } = req.params;
-  console.log(id);
+  // console.log(id);
 
   const db = req.app.get("db");
 
@@ -74,10 +74,32 @@ const detail_By_ID = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const delete_By_ID = (req, res, next) => {
+  let { id } = req.query;
+  // console.log("req", id);
+  const deleteId = parseInt(id);
+  // console.log(typeof deleteId);
+
+  const db = req.app.get("db");
+  // console.log("here");
+  db.delete_post_id([deleteId])
+    .then(response => {
+      // console.log(response);
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+
+  // db.posts_helo.destroy({ id: deleteId }, function(err, res) {
+  //   console.log("res", res);
+  //   console.log("err", err);
+  // });
+};
+
 module.exports = {
   read_Posts_User,
   read_Posts,
   create_Posts,
   update,
-  detail_By_ID
+  detail_By_ID,
+  delete_By_ID
 };

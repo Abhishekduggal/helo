@@ -42,4 +42,9 @@ UPDATE posts_helo SET
     content = $3 
     WHERE title = $1;
 SELECT *
-FROM posts_helo;   
+FROM posts_helo;
+
+
+DELETE FROM post_helo WHERE  id=$1
+SELECT *
+FROM post_helo 

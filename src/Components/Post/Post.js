@@ -21,6 +21,18 @@ class Post extends Component {
       .catch(err => console.log(err));
   }
 
+  buttonClickDelete() {
+    let id = this.props.match.params.postid;
+    // console.log(id);
+    axios
+      .delete(`/api/post/?id=${id}`)
+      .then(res => {
+        //console.log(res);
+        this.setState({ post: res.data });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     // console.log(this.props.match.params.postid);
     // console.log(this.state);
@@ -31,6 +43,7 @@ class Post extends Component {
           <h3>{display.title}</h3>
           <img src={display.img} alt="" />
           <h5>{display.content}</h5>
+          <button onClick={e => this.buttonClickDelete()}>Delete</button>
         </div>
       );
     });
