@@ -1,5 +1,6 @@
 const read_Posts_User = (req, res, next) => {
   let { id } = req.params;
+  // console.log(id);
   let { search, myposts } = req.body;
 
   //   console.log(id, search, myposts);
@@ -32,15 +33,20 @@ const read_Posts = (req, res, next) => {
 
 const create_Posts = (req, res, next) => {
   //   console.log(req.body);
-  let { id } = req.params;
+  // let { id } = req.params;
+  let id = req.session.userid;
+  // console.log("Params", id);
+  // console.log("Session", req.session.userid);
   //This is the User or Auth ID
   let { title, imageURL, content } = req.body;
 
-  //   console.log(id, title, imageURL, content);
+  // console.log(id, title, imageURL, content);
+
   const db = req.app.get("db");
 
   db.create_post([title, imageURL, content, id])
     .then(response => {
+      // console.log(response);
       res.status(200).send(response);
     })
     .catch(err => res.status(500).send(err));

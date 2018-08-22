@@ -5,7 +5,13 @@ const cors = require("cors");
 const massive = require("massive");
 const port = process.env.SERVER_PORT || 6354;
 const app = express();
-const { create, get_User } = require("./controllers/userCtrl");
+const session = require("express-session");
+const {
+  create,
+  get_User,
+  logout,
+  sessionid
+} = require("./controllers/userCtrl");
 const {
   read_Posts_User,
   read_Posts,
@@ -28,14 +34,29 @@ massive(process.env.CONNECTION_STRING)
 app.use(json());
 app.use(cors());
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 100000
+    }
+  })
+);
+
 app.post("/api/user", get_User);
 app.post("/api/user/create", create);
+app.post("/api/auth/logout", logout);
+
 app.get("/api/posts", read_Posts);
 app.post("/api/posts/:id", read_Posts_User);
 app.post("/api/create/:id", create_Posts);
 app.put("/api/post/:title", update);
 app.post("/api/post/:id", detail_By_ID);
 app.delete("/api/post/", delete_By_ID);
+
+app.get("/api/session/", sessionid);
 
 // Build the APP for production catch all errors during build
 // app.get("*", (req, res) => {

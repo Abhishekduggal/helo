@@ -46,7 +46,7 @@ class Form extends Component {
     axios
       .post(`/api/create/${id}`, { title, imageURL, content })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.setState({ posts: res.data });
       })
       .then(() => {
